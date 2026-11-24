@@ -1,0 +1,12 @@
+{% extends "base.html" %}{% block body %}
+<h1>Dashboard</h1>
+<div class="grid">
+<div class="stat"><b>{{ stats.students }}</b><span>Students</span></div>
+<div class="stat"><b>{{ stats.courses }}</b><span>Courses</span></div>
+<div class="stat"><b>{{ stats.present_today }}</b><span>Present today</span></div>
+<div class="stat"><b>{{ stats.absent_today }}</b><span>Absent today</span></div></div>
+<div class="card"><h3>Defaulters (below {{ threshold }}%)</h3>
+{% if defaulters %}<table><tr><th>Roll</th><th>Name</th><th>Course</th><th>Attendance</th></tr>
+{% for r in defaulters %}<tr><td>{{ r.roll_no }}</td><td>{{ r.name }}</td><td>{{ r.code }}</td><td><span class="pill low">{{ r.pct }}%</span></td></tr>{% endfor %}</table>
+{% else %}<p class="muted">No defaulters. 🎉</p>{% endif %}</div>
+{% endblock %}

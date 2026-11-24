@@ -1,0 +1,9 @@
+{% extends "base.html" %}{% block title %}Login{% endblock %}
+{% block body %}
+<div class="card login"><h1 class="center">Smart Attendance</h1>
+<p class="muted center">Sign in as teacher or student</p>
+<form method="post"><input name="username" placeholder="Username / Roll No" required autofocus>
+<input name="password" type="password" placeholder="Password" required>
+<button class="btn">Login</button></form>
+<p class="muted center">Teacher demo: admin / admin123</p></div>
+{% endblock %}

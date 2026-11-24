@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{% block title %}Smart Attendance{% endblock %}</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"></head>
+<body>
+{% if session.user_id %}
+<nav><div class="logo">📋 Smart Attendance</div>
+{% if session.role == 'teacher' %}
+<a href="{{ url_for('dashboard') }}">Dashboard</a><a href="{{ url_for('students') }}">Students</a>
+<a href="{{ url_for('courses') }}">Courses</a><a href="{{ url_for('mark') }}">Mark</a>
+<a href="{{ url_for('qr_session') }}">QR Session</a><a href="{{ url_for('reports') }}">Reports</a>
+{% else %}<a href="{{ url_for('my_attendance') }}">My Attendance</a>{% endif %}
+<a href="{{ url_for('logout') }}">Logout ({{ session.username }})</a></nav>
+{% endif %}
+<main>
+{% with msgs = get_flashed_messages(with_categories=true) %}{% for c, m in msgs %}<div class="flash {{ c }}">{{ m }}</div>{% endfor %}{% endwith %}
+{% block body %}{% endblock %}
+</main></body></html>

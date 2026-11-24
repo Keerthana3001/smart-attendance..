@@ -1,0 +1,12 @@
+{% extends "base.html" %}{% block body %}
+<h1>Hello, {{ student.name }}</h1>
+<div class="card"><h3>Attendance by course</h3><table><tr><th>Course</th><th>Present / Total</th><th>Attendance</th></tr>
+{% for r in rows %}<tr><td>{{ r.code }} - {{ r.cname }}</td><td>{{ r.present }} / {{ r.total }}</td>
+<td><span class="bar"><i class="{{ 'low' if r.pct < threshold }}" style="width:{{ r.pct }}%"></i></span>
+<span class="pill {{ 'low' if r.pct < threshold else 'good' }}">{{ r.pct }}%</span></td></tr>
+{% else %}<tr><td colspan="3" class="muted">No records yet.</td></tr>{% endfor %}</table>
+<p class="muted">Minimum required: {{ threshold }}%</p></div>
+<div class="card"><h3>Recent history</h3><table><tr><th>Date</th><th>Course</th><th>Status</th><th>Method</th></tr>
+{% for h in history %}<tr><td>{{ h.date }}</td><td>{{ h.code }}</td><td><span class="pill {{ 'good' if h.status == 'Present' else 'low' }}">{{ h.status }}</span></td><td>{{ h.method }}</td></tr>
+{% else %}<tr><td colspan="4" class="muted">Nothing yet.</td></tr>{% endfor %}</table></div>
+{% endblock %}

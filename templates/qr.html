@@ -1,0 +1,10 @@
+{% extends "base.html" %}{% block body %}
+<h1>QR Check-in</h1>
+<div class="card"><form method="post" class="inline">
+<select name="course_id" required>{% for c in courses %}<option value="{{ c.id }}">{{ c.code }} - {{ c.name }}</option>{% endfor %}</select>
+<input type="number" name="minutes" value="10" min="1" max="120" style="width:90px"> <span class="muted">minutes valid</span>
+<button class="btn">Generate QR</button></form></div>
+{% if token %}<div class="card center"><h3>{{ course.code }} - {{ course.name }}</h3>
+<img src="{{ url_for('qr_image', token=token) }}" alt="QR code" width="260">
+<p class="muted">Students sign in on their phone and scan this. Expires {{ expires }}.<br>Phones must reach this computer's network address, not "localhost".</p></div>{% endif %}
+{% endblock %}

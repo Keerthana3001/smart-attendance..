@@ -1,0 +1,15 @@
+{% extends "base.html" %}{% block body %}
+<h1>Mark Attendance</h1>
+<div class="card"><form method="get" class="inline">
+<select name="course_id" required><option value="">Select course</option>
+{% for c in courses %}<option value="{{ c.id }}" {{ 'selected' if c.id == course_id }}>{{ c.code }} - {{ c.name }}</option>{% endfor %}</select>
+<input type="date" name="date" value="{{ day }}"><button class="btn light">Load</button></form></div>
+{% if course_id %}<div class="card"><form method="post">
+<input type="hidden" name="course_id" value="{{ course_id }}"><input type="hidden" name="date" value="{{ day }}">
+<table><tr><th>Roll</th><th>Name</th><th>Status</th></tr>
+{% for s in students %}<tr><td>{{ s.roll_no }}</td><td>{{ s.name }}</td><td class="radio">
+<label><input type="radio" name="s_{{ s.id }}" value="Present" {{ 'checked' if existing.get(s.id) == 'Present' }}> Present</label>
+<label><input type="radio" name="s_{{ s.id }}" value="Absent" {{ 'checked' if existing.get(s.id, 'Absent') == 'Absent' }}> Absent</label></td></tr>
+{% else %}<tr><td colspan="3" class="muted">Add students first.</td></tr>{% endfor %}</table>
+<p><button class="btn">Save attendance</button></p></form></div>{% endif %}
+{% endblock %}
